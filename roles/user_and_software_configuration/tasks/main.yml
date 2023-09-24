@@ -1,0 +1,22 @@
+---
+# tasks file for user_and_software_configuration
+
+- name: "Install packages"
+  include_tasks: installPackages.yml
+
+- name: "Create user accounts and add authorized keys"
+  include_tasks: createUserAccounts.yml
+  loop: "{{ query('dict', user_and_software_configuration_users) }}"
+
+- name: "Ensure directive #includedir /etc/sudoers.d exists in /etc/sudoers file"
+  lineinfile:
+    name: /etc/sudoers
+    line: "#includedir /etc/sudoers.d"
+    state: present
+
+- name: "Allow sudo users to sudo without a password"
+  copy:
+    src: users-config-sudoers
+    dest: /etc/sudoers.d/users-config-sudoers
+    mode: 0440
+ 

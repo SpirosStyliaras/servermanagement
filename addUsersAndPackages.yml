@@ -1,0 +1,22 @@
+---
+
+- name: "Playbook for creating user accounts and installing software packages in Deployed MAAS machines"
+  hosts: all
+  gather_facts: yes
+  become: yes  
+  
+  roles:
+    - role: user_and_software_configuration
+
+- name: "Install Docker in MAAS managed hosts"
+  hosts: DevOps
+  gather_facts: yes
+  become: yes
+
+  roles:
+    - role: geerlingguy.docker
+
+  tasks:
+    - name: Install Docker SDK for python
+      pip:
+        name: docker

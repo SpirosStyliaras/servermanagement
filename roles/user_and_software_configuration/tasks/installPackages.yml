@@ -1,0 +1,7 @@
+# Task for installation of wanted packages
+
+- name: "Install wanted packages"
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ user_and_software_configuration_packages | default([]) }}"

@@ -1,0 +1,9 @@
+# Longhorn requirements installation framework
+
+- name: "Playbook for installation and configuration of Longhorn requirements"
+  hosts: Kubernetes
+  gather_facts: yes
+  become: yes  
+  
+  roles:
+   - role: longhorn_requirements

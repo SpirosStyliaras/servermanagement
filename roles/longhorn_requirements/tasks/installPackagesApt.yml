@@ -1,0 +1,18 @@
+# Install packages through apt (Debian OS-family)
+
+
+- name: "Update apt repositories cache"
+  apt:
+    update_cache: yes
+
+- name: "Install longhorn required packages"
+  include_tasks: installPackages.yml
+
+- name: "Remove useless packages from the cache"
+  apt:
+    autoclean: yes
+
+- name: "Remove dependencies that are no longer required"
+  apt:
+    autoremove: yes
+

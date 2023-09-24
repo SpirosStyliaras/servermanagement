@@ -1,0 +1,15 @@
+---
+# Project's default variables
+
+# user_and_software_configuration role variables:
+user_and_software_configuration_packages:
+  - sudo
+  - net-tools
+  - vim
+  - tree
+
+user_and_software_configuration_users:
+  spiros:
+    groups:
+      - sudo
+    ssh_key:

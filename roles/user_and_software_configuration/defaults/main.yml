@@ -1,0 +1,15 @@
+---
+# defaults file for userconfigure
+
+# List of wanted packages to be installed
+user_and_software_configuration_packages:
+  - sudo
+
+# Dictionary with wanted users addedd. Mapping containing keys with user names and values the groups and public ssh key
+user_and_software_configuration_users: {}
+
+      
+
+
+
+

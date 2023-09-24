@@ -1,0 +1,50 @@
+# Tasks file for longhorn_requirements
+
+- name: "Get Docker version"
+  command: docker --version
+  register: docker_installed
+  ignore_errors: yes
+
+- name: "Check Docker installation"
+  fail:
+    msg: "Docker Engine not installed"
+  when: docker_installed.rc != 0
+
+- ansible.builtin.debug:
+    msg: "{{inventory_hostname}} Docker Engine installed: {{ docker_installed.stdout }} "
+
+# - name: "Check Kubernetes installation"
+#   block:
+#     - name: "Get Kubernetes Server version"
+#       shell: kubectl version --short | egrep 'Server Version' 
+#       register: kube_installed
+#       ignore_errors: yes
+
+#     - name: "Check Kubernetes installed"
+#       fail:
+#         msg: "Kubernetes cluster not installed"
+#       when: kube_installed.rc != 0
+
+#     - ansible.builtin.debug:
+#         msg: "Kubernetes Server: {{ kube_installed.stdout }} "
+
+#   when: inventory_hostname in groups['Kubernetes_control-plane'][0]
+
+- name: "Get host filesystem type"
+  shell: df -Th / | awk '(NR>1) {print $2}'
+  register: filesystem_type
+
+- name: "Check host filesystem type"
+  fail:
+    msg: "Host filesystem {{ filesystem_type.stdout }} not supported"
+  when: filesystem_type.stdout not in longhorn_supported_filesystems
+
+- name: "Install longhorn requirements"
+  include_tasks: installPackagesApt.yml
+  when: ansible_os_family == "Debian"
+
+- name: "Manage required services"
+  include_tasks: manageServices.yml
+
+- name: "Enable Mount Share in Docker"
+  include_tasks: mountShareDocker.yml

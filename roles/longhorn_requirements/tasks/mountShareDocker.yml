@@ -1,0 +1,30 @@
+# Task for enabling Mount Share in Docker
+
+
+- name: "Enable Mount share in Docker through the systemd service file"
+  shell:
+    cmd: |
+      cat > /etc/systemd/system/docker.service <<EOF
+      .include /usr/lib/systemd/system/docker.service
+      [Service]
+      MountFlags=shared
+      EOF
+  register: docker_mountflags_set
+
+- name: "Check Docker systemd service file set"
+  fail:
+    msg: "Docker systemd service file modification for MountFlags not set"
+  when: docker_mountflags_set.rc != 0
+
+- name: "Reload systemd daemon, start and enable docker service"
+  ansible.builtin.service:
+    name: docker
+    enabled: yes
+    state: restarted
+    daemon_reload: yes
+  register: docker_service
+
+- name: "Check MountFlags value set"
+  fail:
+    msg: "Docker MountFlags not shared"
+  when: docker_service.status.MountFlags != 'shared'

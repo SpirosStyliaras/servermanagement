@@ -1,0 +1,22 @@
+---
+# tasks file for userconfigure
+
+- name: "Create user accounts"
+  user:
+    name: "{{ item.key }}"
+    shell: /bin/bash
+    groups: "{{ item.value.groups }}"
+    state: "{{ item.value.state | default('present') }}"
+
+- name: "Add authorized keys of user accounts"
+  authorized_key:
+    user: "{{ item.key }}"
+    key: "{{ item.value.ssh_key }}"
+    state: "{{ item.value.state | default('present') }}"
+  when:
+    - "'ssh_key' in item.value"
+    - not ansible_check_mode
+
+- ansible.builtin.debug:
+    msg:
+    - "User account '{{ item.key }}' added to host."

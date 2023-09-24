@@ -1,0 +1,8 @@
+# Task for managing required services
+
+
+- name: "Enable and start iscsid service"
+  ansible.builtin.service:
+    name: iscsid
+    enabled: yes
+    state: started

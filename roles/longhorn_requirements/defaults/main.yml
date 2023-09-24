@@ -1,0 +1,17 @@
+# Defaults file for longhorn_requirements
+
+# List of required packages to be installed
+longhorn_packages:
+  - jq
+  - open-iscsi
+  - nfs-common
+  - bash
+  - curl
+  - util-linux
+  - grep
+  - mawk
+  - gawk
+
+longhorn_supported_filesystems:
+  - ext4
+  - XFS

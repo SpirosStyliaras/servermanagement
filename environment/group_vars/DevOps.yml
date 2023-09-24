@@ -1,0 +1,24 @@
+---
+# test-environment group variables
+
+# geerlingguy.docker role variables:
+docker_edition: 'ce'
+docker_package_state: present
+docker_service_state: started
+docker_service_enabled: true
+docker_install_compose: true
+docker_compose_version: "1.29.2"
+
+docker_users:
+  - ubuntu
+  - spiros
+
+# user_and_software_configuration role variables:
+user_and_software_configuration_packages:
+  - sudo
+  - net-tools
+  - vim
+  - tree
+  - dnsutils
+  - jq
+  - python3-pip 

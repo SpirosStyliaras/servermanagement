@@ -1,0 +1,8 @@
+# Task for installation of longhorn required packages
+
+
+- name: "Install required packages"
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ longhorn_packages | default([]) }}"

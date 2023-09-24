@@ -1,0 +1,5 @@
+# Install project's requirements (collections and roles)
+
+roles:
+  - name: geerlingguy.docker
+    version: master
