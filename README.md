@@ -1,5 +1,5 @@
 <table align="center"><tr><td align="center" width="9999">
-<img src="icons/ansible_logo.png" align="center" width="150" alt="MaaS icon">
+<img src="icons/ansible.png" align="center" width="150" alt="MaaS icon">
 
 # ServerManagement
 
