@@ -1,8 +1,9 @@
 ---
 # tasks file for user_and_software_configuration
 
-- name: "Install packages"
-  include_tasks: installPackages.yml
+- name: "Install APT packages"
+  include_tasks: installPackagesApt.yml
+  when: ansible_os_family == "Debian"
 
 - name: "Create user accounts and add authorized keys"
   include_tasks: createUserAccounts.yml
