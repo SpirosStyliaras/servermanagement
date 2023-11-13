@@ -9,7 +9,7 @@
     - role: user_and_software_configuration
 
 - name: "Install Docker in MAAS managed hosts"
-  hosts: DevOps
+  hosts: DockerSwarm
   gather_facts: yes
   become: yes
 
